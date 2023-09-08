@@ -17,20 +17,21 @@ def upload_data():
 
 
 def detailed_report(df):
-    if df is not None:
+    df_report = df.copy()
+    if df_report is not None:
         # Cambiamos los valores numericos de ciudad a string.
         city_mapping = {1: "Bucaramanga", 2: "Giron", 3: "Florida", 4: "Piedecuesta"}
-        df['Ciudad'] = df['Ciudad'].replace(city_mapping)
+        df_report['Ciudad'] = df_report['Ciudad'].replace(city_mapping)
 
         # Cambiamos las iniciales de sexo a string.
         sex_mapping = {"F": "Femenino", "M": "Masculino"}
-        df['Sexo'] = df['Sexo'].replace(sex_mapping)
+        df_report['Sexo'] = df_report['Sexo'].replace(sex_mapping)
 
-        display(df)
+        display(df_report)
 
         # Calculamos los totales por ciudad
-        city_totals = df['Ciudad'].value_counts()
-        total_participants = len(df)
+        city_totals = df_report['Ciudad'].value_counts()
+        total_participants = len(df_report)
 
         # Calculamos porcentaje de participación por ciudad
         city_percentages = (city_totals / total_participants) * 100
@@ -51,9 +52,9 @@ def detailed_report(df):
         # Grupo 3: mayor a 10 años.
 
         age_group_counts = {
-            'Grupo 1': len(df[df['Edad'] <= 5]),
-            'Grupo 2': len(df[(df['Edad'] > 5) & (df['Edad'] <= 10)]),
-            'Grupo 3': len(df[df['Edad'] > 10])
+            'Grupo 1': len(df_report[df_report['Edad'] <= 5]),
+            'Grupo 2': len(df_report[(df_report['Edad'] > 5) & (df_report['Edad'] <= 10)]),
+            'Grupo 3': len(df_report[df_report['Edad'] > 10])
         }
 
         # Mostramos el numero de chicos por grupo de edad
