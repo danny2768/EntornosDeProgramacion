@@ -7,16 +7,14 @@ def upload_data():
         column_names = ["Codigo", "Sexo", "Nombre", "Edad", "Ciudad"]
         df = pd.read_csv('chicos.csv', header=None, names=column_names, encoding='latin1')
 
-        # Mapeo de ciudades y sexos
+        # Cambiamos los valores numericos de ciudad a string.
         city_mapping = {1: "Bucaramanga", 2: "Girón", 3: "Florida", 4: "Piedecuesta"}
-        sex_mapping = {"F": "Femenino", "M": "Masculino"}
-
         df['Ciudad'] = df['Ciudad'].replace(city_mapping)
+
+        # Cambiamos las iniciales de sexo a string.
+        sex_mapping = {"F": "Femenino", "M": "Masculino"}
         df['Sexo'] = df['Sexo'].replace(sex_mapping)
 
-        datos = df.values.tolist()
         print("Datos cargados con éxito desde chicos.csv")
-        return datos
     except FileNotFoundError:
         print("El archivo chicos.csv no existe.")
-        return []
