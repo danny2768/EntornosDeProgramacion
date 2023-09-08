@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import pandas as pd
+import csv
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Funcion para cargar datos desde el archivo chicos.csv
+def upload_data():
+    try:
+        column_names = ["Codigo", "Sexo", "Nombre", "Edad", "Ciudad"]
+        df = pd.read_csv('chicos.csv', header=None, names=column_names, encoding='latin1')
 
+        # Mapeo de ciudades y sexos
+        city_mapping = {1: "Bucaramanga", 2: "Girón", 3: "Florida", 4: "Piedecuesta"}
+        sex_mapping = {"F": "Femenino", "M": "Masculino"}
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+8 to toggle the breakpoint.
+        df['Ciudad'] = df['Ciudad'].replace(city_mapping)
+        df['Sexo'] = df['Sexo'].replace(sex_mapping)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        datos = df.values.tolist()
+        print("Datos cargados con éxito desde chicos.csv")
+        return datos
+    except FileNotFoundError:
+        print("El archivo chicos.csv no existe.")
+        return []

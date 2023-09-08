@@ -3,24 +3,24 @@ import csv
 
 
 # Función para cargar datos desde un archivo CSV a una lista
-def cargar_datos():
-    try:
-        column_names = ["Codigo", "Sexo", "Nombre", "Edad", "Ciudad"]
-        df = pd.read_csv('chicos.csv', header=None, names=column_names, encoding='latin1')
+    def cargar_datos():
+        try:
+            column_names = ["Codigo", "Sexo", "Nombre", "Edad", "Ciudad"]
+            df = pd.read_csv('chicos.csv', header=None, names=column_names, encoding='latin1')
 
-        # Mapeo de ciudades y sexos
-        city_mapping = {1: "Bucaramanga", 2: "Girón", 3: "Florida", 4: "Piedecuesta"}
-        sex_mapping = {"F": "Femenino", "M": "Masculino"}
+            # Mapeo de ciudades y sexos
+            city_mapping = {1: "Bucaramanga", 2: "Girón", 3: "Florida", 4: "Piedecuesta"}
+            sex_mapping = {"F": "Femenino", "M": "Masculino"}
 
-        df['Ciudad'] = df['Ciudad'].replace(city_mapping)
-        df['Sexo'] = df['Sexo'].replace(sex_mapping)
+            df['Ciudad'] = df['Ciudad'].replace(city_mapping)
+            df['Sexo'] = df['Sexo'].replace(sex_mapping)
 
-        datos = df.values.tolist()
-        print("Datos cargados con éxito desde chicos.csv")
-        return datos
-    except FileNotFoundError:
-        print("El archivo chicos.csv no existe.")
-        return []
+            datos = df.values.tolist()
+            print("Datos cargados con éxito desde chicos.csv")
+            return datos
+        except FileNotFoundError:
+            print("El archivo chicos.csv no existe.")
+            return []
 
 
 # Función para mostrar los datos y realizar el informe especial
