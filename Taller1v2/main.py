@@ -71,7 +71,7 @@ def detailed_report(df):
 
 def add_record(df):
     print("A continuación se le pedirán los datos requeridos para el nuevo registro: ")
-
+    # Capturamos los datos y los validamos
     name = validate_name()
     code = validate_code()
     sex = validate_sex()
@@ -85,7 +85,7 @@ def add_record(df):
         'Edad': age,
         'Ciudad': city
     }
-    # Agregar el nuevo registro al DataFrame
+    # Agregamos el nuevo registro al DataFrame
     df = pd.concat([df, pd.DataFrame([new_record])], ignore_index=True)
 
     print("\nArchivo actualizado con exito:\n")
@@ -98,18 +98,22 @@ def edit_record(df):
     print("\nRegistros actuales:")
     display(df)
 
+    # Requerimos el codigo del registro a editar
     code_to_edit = input("Por favor ingrese el codigo del registro que desea editar: ")
     code_to_edit = int(code_to_edit)
 
+    # Validamos si el codigo se encuentra en el dataframe
     if code_to_edit in df['Codigo'].values:
         print("\nRegistro antes de la modificación:")
         display(df[df['Codigo'] == code_to_edit])
 
+        # Capturamos los datos y los validamos
         new_name = validate_name()
         new_sex = validate_sex()
         new_age = validate_age()
         new_city = validate_city()
 
+        # Reemplazamos los datos.
         df.loc[df['Codigo'] == code_to_edit, 'Nombre'] = new_name
         df.loc[df['Codigo'] == code_to_edit, 'Sexo'] = new_sex
         df.loc[df['Codigo'] == code_to_edit, 'Edad'] = new_age
@@ -127,10 +131,13 @@ def delete_record(df):
     print("\nRegistros actuales:")
     display(df)
 
+    # Requerimos codigo del registro a liminar
     code_to_delete = input("Por favor ingrese el código del registro que desea eliminar: ")
     code_to_delete = int(code_to_delete)
 
+    # Validamos si el registro se encuentra en el dataframe
     if code_to_delete in df['Codigo'].values:
+        # Eliminamos el registro
         df = df[df['Codigo'] != code_to_delete]
         print("\nRegistro eliminado con éxito:\n")
         display(df)
@@ -142,8 +149,10 @@ def delete_record(df):
 
 def save_and_exit(df):
     while True:
+        # Preguntamos al usuario si desea guardar operaciones realizadas.
         save_choice = input("\n¿Desea guardar las operaciones realizadas en 'chicosModified.csv'? (Sí/No): ").lower()
         if save_choice in ["si", "sí"]:
+            # Exportamos el dataframe a un csv.
             df.to_csv('chicosModified.csv', index=False)
             print("Operaciones guardadas con éxito en 'chicosModified.csv'.")
             break
@@ -155,6 +164,7 @@ def save_and_exit(df):
 
 
 def validate_age():
+    # Validamos la edad, debe ser un numero entre 0 y 150
     while True:
         try:
             age = int(input("Ingrese la nueva edad: "))
@@ -168,6 +178,7 @@ def validate_age():
 
 
 def validate_city():
+    # Validamos la ciudad, debe ser un numero de 1 a 4. Estos numeros corresponden a una ciudad.
     while True:
         try:
             city = int(
@@ -182,6 +193,7 @@ def validate_city():
 
 
 def validate_sex():
+    # Validamos sexo, valores aceptados: "F", "f", "M", "m"
     while True:
         sex = input("\nPor favor ingrese el sexo (F o M): ")
         if sex in ["F", "f", "M", "m"]:
@@ -192,6 +204,7 @@ def validate_sex():
 
 
 def validate_code():
+    # Validamos el ingreso de un codigo, debe ser un dato numerico.
     while True:
         try:
             code = int(input("\nPor favor ingrese el codigo: "))
@@ -202,6 +215,7 @@ def validate_code():
 
 
 def validate_name():
+    # validamos el ingreso del nombre, no puede contener numeros.
     while True:
         name = input("\nPor favor ingrese el nombre: ")
         if not any(char.isdigit() for char in name):
