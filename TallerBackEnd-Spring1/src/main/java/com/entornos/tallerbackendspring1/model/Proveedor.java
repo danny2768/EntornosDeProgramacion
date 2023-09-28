@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(schema = "tallerspring1", name = "proveedor")
-public class proveedor implements Serializable {
+@Table(schema = "tallerspring1", name = "Proveedor")
+public class Proveedor implements Serializable {
     @Serial
     private static final long serialVersionUID = -5480542936504183626L;
 
