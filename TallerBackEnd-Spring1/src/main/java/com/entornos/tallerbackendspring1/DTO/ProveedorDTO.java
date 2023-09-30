@@ -1,29 +1,34 @@
 package com.entornos.tallerbackendspring1.DTO;
 
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.lang.NonNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Basic;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class ProveedorDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -8614315185327514631L;
 
+    @JsonProperty("id")
     private Long id;
 
-    @NotNull
+    @JsonProperty("ciudad")
     private String ciudad;
 
-    @NotNull
+    @JsonProperty("direccion")
     private String direccion;
 
-    @NotNull
+    @JsonProperty("nombre")
     private String nombre;
 
-    @NotNull
+    @JsonProperty("telefono")
     private String telefono;
 
-    @NotNull
+    @JsonProperty("nit")
     private String nit;
 }
